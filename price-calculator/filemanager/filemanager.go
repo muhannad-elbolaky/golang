@@ -49,7 +49,7 @@ func (fm *FileManager) ReadLines() ([]string, error) {
 //
 // The data parameter can be of any type, but it must be compatible with the encoding/json package.
 // The function returns an error if there was a problem creating the file or converting the data to JSON.
-func (fm *FileManager) WriteJson(data any /* any = interface{} */) error {
+func (fm *FileManager) WriteResult(data any /* any = interface{} */) error {
 	file, err := os.Create(fm.OutputPath)
 
 	if err != nil {

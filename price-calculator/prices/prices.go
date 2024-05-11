@@ -4,21 +4,16 @@ import (
 	"fmt"
 
 	"majoramari.com/price-calculator/conversion"
-	"majoramari.com/price-calculator/filemanager"
+	"majoramari.com/price-calculator/iomanager"
 )
 
 type TaxIncludedPriceJob struct {
-	IOManager         filemanager.FileManager `json:"-"`
-	TaxRate           float64                 `json:"text_rate"`
-	InputPrices       []float64               `json:"input_prices"`
-	TaxIncludedPrices map[string]string       `json:"tex_included_prices"`
+	IOManager         iomanager.IOManager `json:"-"`
+	TaxRate           float64             `json:"text_rate"`
+	InputPrices       []float64           `json:"input_prices"`
+	TaxIncludedPrices map[string]string   `json:"tex_included_prices"`
 }
 
-// LoadData loads data from the IOManager and populates the InputPrices field of the TaxIncludedPriceJob struct.
-//
-// It reads the lines from the IOManager using the ReadLines method and converts the lines to floats using the StringsToFloat function from the conversion package.
-// If any error occurs during the process, it prints the error message and returns.
-// Otherwise, it assigns the converted prices to the InputPrices field of the TaxIncludedPriceJob struct.
 func (job *TaxIncludedPriceJob) LoadData() {
 	lines, err := job.IOManager.ReadLines()
 
@@ -37,10 +32,6 @@ func (job *TaxIncludedPriceJob) LoadData() {
 	job.InputPrices = prices
 }
 
-// Process calculates the tax-included prices for the input prices based on the tax rate and saves the results.
-//
-// No parameters.
-// No return values.
 func (job *TaxIncludedPriceJob) Process() {
 	job.LoadData()
 
@@ -54,19 +45,12 @@ func (job *TaxIncludedPriceJob) Process() {
 
 	job.TaxIncludedPrices = result
 
-	job.IOManager.WriteJson(job)
+	job.IOManager.WriteResult(job)
 }
 
-// New creates a new TaxIncludedPriceJob instance with the provided FileManager and tax rate.
-//
-// Parameters:
-// - fm: a pointer to a FileManager instance.
-// - taxRate: a float64 representing the tax rate.
-// Returns:
-// - *TaxIncludedPriceJob: a pointer to the newly created TaxIncludedPriceJob instance.
-func New(fm *filemanager.FileManager, taxRate float64) *TaxIncludedPriceJob {
+func New(iom iomanager.IOManager, taxRate float64) *TaxIncludedPriceJob {
 	return &TaxIncludedPriceJob{
-		IOManager:   *fm,
+		IOManager:   iom,
 		InputPrices: []float64{10, 20, 30},
 		TaxRate:     taxRate,
 	}
