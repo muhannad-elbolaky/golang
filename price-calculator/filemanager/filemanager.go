@@ -7,14 +7,16 @@ import (
 	"os"
 )
 
-// ReadLines reads a file and returns its content line by line.
-//
-// It takes the file path as a parameter and returns a slice of strings
-// representing each line and an error.
-func ReadLines(path string) ([]string, error) {
-	file, err := os.Open(path)
+type FileManager struct {
+	InputPath  string
+	OutputPath string
+}
+
+func (fm *FileManager) ReadLines() ([]string, error) {
+	file, err := os.Open(fm.InputPath)
 
 	if err != nil {
+
 		return nil, errors.New("failed to open file")
 	}
 
@@ -37,16 +39,8 @@ func ReadLines(path string) ([]string, error) {
 	return lines, nil
 }
 
-// Writes the provided data to a JSON file specified by the given path.
-//
-// Parameters:
-// - path: the path to the JSON file.
-// - data: the data to be written to the file.
-//
-// Returns:
-// - error: an error if the file creation or JSON encoding fails.
-func WriteJson(path string, data any /* any = interface{} */) error {
-	file, err := os.Create(path)
+func (fm *FileManager) WriteJson(data any /* any = interface{} */) error {
+	file, err := os.Create(fm.OutputPath)
 
 	if err != nil {
 		return errors.New("failed to create a file")
@@ -63,4 +57,11 @@ func WriteJson(path string, data any /* any = interface{} */) error {
 
 	file.Close()
 	return nil
+}
+
+func New(inputPath, outputPath string) *FileManager {
+	return &FileManager{
+		InputPath:  inputPath,
+		OutputPath: outputPath,
+	}
 }
