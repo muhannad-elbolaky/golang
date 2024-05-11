@@ -45,10 +45,6 @@ func (fm *FileManager) ReadLines() ([]string, error) {
 	return lines, nil
 }
 
-// WriteJson writes the provided data as JSON to the file specified by the FileManager's OutputPath field.
-//
-// The data parameter can be of any type, but it must be compatible with the encoding/json package.
-// The function returns an error if there was a problem creating the file or converting the data to JSON.
 func (fm *FileManager) WriteResult(data any /* any = interface{} */) error {
 	file, err := os.Create(fm.OutputPath)
 
@@ -69,14 +65,6 @@ func (fm *FileManager) WriteResult(data any /* any = interface{} */) error {
 	return nil
 }
 
-// New creates a new FileManager instance with the provided inputPath and outputPath.
-//
-// Parameters:
-// - inputPath: a string representing the path to the input file.
-// - outputPath: a string representing the path to the output file.
-//
-// Returns:
-// - *FileManager: a pointer to the newly created FileManager instance.
 func New(inputPath, outputPath string) *FileManager {
 	return &FileManager{
 		InputPath:  inputPath,
