@@ -8,6 +8,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// getEvents retrieves all events from the database and returns them in the response.
+//
+// Parameters:
+// - context: The gin.Context object representing the current HTTP request.
+//
+// Returns:
+// - None.
 func getEvents(context *gin.Context) {
 	events, err := models.GetAllEvents()
 
@@ -19,6 +26,11 @@ func getEvents(context *gin.Context) {
 	context.JSON(http.StatusOK, events)
 }
 
+// getEvent retrieves an event by its ID and returns it in the response.
+//
+// Parameters:
+// - context: The gin.Context object representing the current HTTP request.
+// Return type: None.
 func getEvent(context *gin.Context) {
 	eventID, err := strconv.ParseInt(context.Param("id"), 10, 64)
 	if err != nil {
@@ -36,6 +48,13 @@ func getEvent(context *gin.Context) {
 	context.JSON(http.StatusOK, event)
 }
 
+// createEvent creates an event from the JSON data in the request body and saves it to the database.
+//
+// Parameters:
+// - context: The gin.Context object representing the current HTTP request.
+//
+// Returns:
+// - None.
 func createEvent(context *gin.Context) {
 	var event models.Event
 	err := context.ShouldBindJSON(&event)
@@ -57,6 +76,13 @@ func createEvent(context *gin.Context) {
 	context.JSON(http.StatusCreated, gin.H{"message": "Event created successfully.", "event": event})
 }
 
+// updateEvent updates an event by its ID if the user is authorized to do so.
+//
+// Parameters:
+// - context: The gin.Context object representing the current HTTP request.
+//
+// Returns:
+// - None.
 func updateEvent(context *gin.Context) {
 	eventID, err := strconv.ParseInt(context.Param("id"), 10, 64)
 	if err != nil {
@@ -93,6 +119,13 @@ func updateEvent(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{"message": "Event updated successfully", "event": updatedEvent})
 }
 
+// deleteEvent deletes an event by its ID if the user is authorized to do so.
+//
+// Parameters:
+// - context: The gin.Context object representing the current HTTP request.
+//
+// Returns:
+// - None.
 func deleteEvent(context *gin.Context) {
 	eventID, err := strconv.ParseInt(context.Param("id"), 10, 64)
 	if err != nil {

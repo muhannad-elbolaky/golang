@@ -8,6 +8,10 @@ import (
 
 var DB *sql.DB
 
+// InitDB initializes the database connection and creates the necessary tables.
+//
+// No parameters.
+// No return values.
 func InitDB() {
 	var err error
 	DB, err = sql.Open("sqlite", "api.db")
@@ -21,6 +25,10 @@ func InitDB() {
 	createTable()
 }
 
+// createTable creates the necessary tables in the database.
+//
+// No parameters.
+// No return values.
 func createTable() {
 	createUsersTable := `
 		CREATE TABLE IF NOT EXISTS users (

@@ -15,6 +15,10 @@ type Event struct {
 	UserID      int64
 }
 
+// Save saves the event details to the database.
+//
+// No parameters.
+// Returns an error.
 func (event *Event) Save() error {
 	query := `
 		INSERT INTO events (
@@ -42,6 +46,10 @@ func (event *Event) Save() error {
 	return err
 }
 
+// GetAllEvents retrieves all events from the database.
+//
+// No parameters.
+// Returns a slice of Event and an error.
 func GetAllEvents() ([]Event, error) {
 	query := "SELECT * FROM events"
 	rows, err := db.DB.Query(query)
@@ -67,6 +75,13 @@ func GetAllEvents() ([]Event, error) {
 	return events, nil
 }
 
+// GetEventByID retrieves an event by its ID from the database.
+//
+// Parameters:
+// - id: The ID of the event to retrieve.
+// Return type:
+// - *Event: The event object.
+// - error: An error if the retrieval fails.
 func GetEventByID(id int64) (*Event, error) {
 	query := "SELECT * FROM events WHERE id = ?"
 	row := db.DB.QueryRow(query, id)
@@ -81,6 +96,10 @@ func GetEventByID(id int64) (*Event, error) {
 	return &event, nil
 }
 
+// Update updates the event details in the database.
+//
+// No parameters.
+// Returns an error.
 func (event *Event) Update() error {
 	query := `
 		UPDATE events
@@ -100,6 +119,10 @@ func (event *Event) Update() error {
 	return err
 }
 
+// Delete deletes the event from the database.
+//
+// No parameters.
+// Returns an error if the deletion fails.
 func (event *Event) Delete() error {
 	query := "DELETE FROM events WHERE id = ?"
 
@@ -115,6 +138,13 @@ func (event *Event) Delete() error {
 	return err
 }
 
+// Register registers a user for an event.
+//
+// Parameters:
+// - userID: The ID of the user to register.
+//
+// Returns:
+// - error: An error if the registration fails.
 func (event *Event) Register(userID int64) error {
 	query := "INSERT INTO registrations(event_id, user_id) values (?, ?)"
 	stmt, err := db.DB.Prepare(query)
@@ -129,6 +159,13 @@ func (event *Event) Register(userID int64) error {
 	return err
 }
 
+// CancelRegistration cancels a user's registration for an event.
+//
+// Parameters:
+// - userID: The ID of the user to unregister.
+//
+// Returns:
+// - error: An error if the cancellation fails.
 func (event *Event) CancelRegistration(userID int64) error {
 	query := "DELETE FROM registrations WHERE event_id = ? AND user_id = ?"
 	stmt, err := db.DB.Prepare(query)

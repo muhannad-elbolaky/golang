@@ -7,6 +7,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Authenticate authenticates the user by validating the token in the request header.
+//
+// Parameters:
+// - context: The gin.Context object representing the current HTTP request.
+// Return type: None.
 func Authenticate(context *gin.Context) {
 	token := context.Request.Header.Get("Authorization")
 

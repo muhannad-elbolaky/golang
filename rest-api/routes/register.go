@@ -8,6 +8,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// registerForEvent registers a user for an event based on the provided context.
+//
+// Parameters:
+// - context: The gin.Context object representing the current HTTP request.
+//
+// Returns:
+// - None.
 func registerForEvent(context *gin.Context) {
 	userID := context.GetInt64("userID")
 	eventID, err := strconv.ParseInt(context.Param("id"), 10, 64)
@@ -31,6 +38,13 @@ func registerForEvent(context *gin.Context) {
 	context.JSON(http.StatusCreated, gin.H{"message": "Registered!"})
 }
 
+// cancelRegistration cancels a user's registration for an event.
+//
+// Parameters:
+// - context: The gin.Context object representing the current HTTP request.
+//
+// Returns:
+// - None.
 func cancelRegistration(context *gin.Context) {
 	userID := context.GetInt64("userID")
 	eventID, err := strconv.ParseInt(context.Param("id"), 10, 64)

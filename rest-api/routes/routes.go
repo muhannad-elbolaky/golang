@@ -5,6 +5,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// RegisterRoutes registers all the routes for the server.
+//
+// Parameters:
+// - server: The gin.Engine server to register the routes on.
+// Return type: None.
 func RegisterRoutes(server *gin.Engine) {
 	server.GET("/events", getEvents)
 	server.GET("/events/:id", getEvent)
