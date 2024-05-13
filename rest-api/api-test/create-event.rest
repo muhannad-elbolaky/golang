@@ -1,6 +1,6 @@
 POST http://localhost:8080/events 
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZWxib2xha3kuZGV2IiwiZXhwIjoxNzE1NTc3ODAwLCJ1c2VySUQiOjF9.WHQvnjydYhk6yXTz3J-FQByQ3bI8TC3z6tfdGPgmF4I
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QyQGVsYm9sYWt5LmRldiIsImV4cCI6MTcxNTU3OTk1NywidXNlcklEIjoyfQ.FsyZ1OzYN8mum5qrcjL_mS4urmCsbxCueUNr4ecjlWQ
 
 {
   "Name": "A Very Special Day!",
